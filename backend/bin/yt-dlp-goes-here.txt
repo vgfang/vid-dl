@@ -1,0 +1,3 @@
+The executable for yt-dlp needs to be here.
+The setup script should install it from github.
+yt-dlp needs to be kept up to date.
