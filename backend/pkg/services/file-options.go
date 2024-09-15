@@ -2,11 +2,13 @@ package services
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 )
 
 func GetFileOptions(url string) ([]byte, error) {
-	cmd := exec.Command("../bin/yt-dlp", url, "-F")
+	cwd, _ := os.Getwd()
+	cmd := exec.Command(cwd+"/bin/yt-dlp", url, "-F")
 	output, err := cmd.Output()
 	fmt.Println(output)
 

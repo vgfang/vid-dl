@@ -1,0 +1,22 @@
+# .air.toml
+
+# Set the root directory of the project
+root = "."
+tmp_dir = "tmp"
+
+[build]
+# Command to build your application
+cmd = "go build -o ./tmp/main ./cmd/vid-dl"
+# The path to the binary file air will run after building
+bin = "./tmp/main"
+# The working directory where the application will be executed
+full_bin = "APP_ENV=dev APP_USER=air ./tmp/main"
+
+[log]
+level = "debug"
+
+[watch]
+# Specify directories and files to watch
+includes = ["cmd/vid-dl", "pkg", ".env"]
+# Ignore certain paths, such as Git and node_modules directories
+excludes = [".git", "tmp"]

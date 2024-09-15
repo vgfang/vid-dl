@@ -16,11 +16,9 @@ func main() {
 		fmt.Fprintf(w, "Welcome to my website!")
 	})
 
-	http.HandleFunc("/test", handlers.TestHandler)
+	http.HandleFunc("/test/", handlers.TestHandler)
 	http.HandleFunc("/file-options", handlers.FileOptions)
-
-	fs := http.FileServer(http.Dir("static/"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	http.HandleFunc("/download-video", handlers.DownloadVideo)
 
 	http.ListenAndServe(":"+strconv.Itoa(port), nil)
 }

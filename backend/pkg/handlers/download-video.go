@@ -8,9 +8,11 @@ import (
 	"vid-dl/pkg/services"
 )
 
-func FileOptions(w http.ResponseWriter, r *http.Request) {
+func DownloadVideo(w http.ResponseWriter, r *http.Request) {
 	type requestBody struct {
-		Url string `json:"url"`
+		Url     string `json:"url"`
+		VideoID string `json:"videoID"`
+		AudioID string `json:"audioID"`
 	}
 
 	if r.Method != http.MethodPost {
@@ -26,9 +28,11 @@ func FileOptions(w http.ResponseWriter, r *http.Request) {
 	}
 
 	url := body.Url
+	videoID := body.VideoID
+	audioID := body.AudioID
 	defer r.Body.Close()
 
-	output, err := services.GetFileOptions(url)
+	output, err := services.DownloadVideo(url, videoID, audioID)
 
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error executing command: %v", err), http.StatusInternalServerError)
