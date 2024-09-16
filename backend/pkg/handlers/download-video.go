@@ -9,10 +9,11 @@ import (
 )
 
 func DownloadVideo(w http.ResponseWriter, r *http.Request) {
+	// TODO: Make sure params are safe
 	type requestBody struct {
 		Url     string `json:"url"`
-		VideoID string `json:"videoID"`
-		AudioID string `json:"audioID"`
+		VideoFormatID string `json:"videoID"`
+		AudioFormatID string `json:"audioID"`
 	}
 
 	if r.Method != http.MethodPost {
@@ -28,8 +29,8 @@ func DownloadVideo(w http.ResponseWriter, r *http.Request) {
 	}
 
 	url := body.Url
-	videoID := body.VideoID
-	audioID := body.AudioID
+	videoID := body.VideoFormatID
+	audioID := body.AudioFormatID
 	defer r.Body.Close()
 
 	output, err := services.DownloadVideo(url, videoID, audioID)

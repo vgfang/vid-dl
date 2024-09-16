@@ -9,6 +9,7 @@ import (
 )
 
 func FileOptions(w http.ResponseWriter, r *http.Request) {
+	// TODO: Make sure params are safe
 	type requestBody struct {
 		Url string `json:"url"`
 	}
