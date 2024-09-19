@@ -1,3 +1,4 @@
 /bin/yt-dlp
 /tmp
 /video-storage
+fileinfo.db

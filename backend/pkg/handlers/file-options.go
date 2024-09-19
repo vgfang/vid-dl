@@ -30,12 +30,16 @@ func FileOptions(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	output, err := services.GetFileOptions(url)
-
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error executing command: %v", err), http.StatusInternalServerError)
 		return
 	}
 
-	w.Header().Set("Content-Type", "text/plain")
-	w.Write(output)
+	jsonData, err := json.Marshal(output)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error encoding JSON at file options: %v", err), http.StatusInternalServerError)
+	}
+
+	w.Header().Set("Content-Type", "appplication/json")
+	w.Write(jsonData)
 }

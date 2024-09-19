@@ -1,3 +1,3 @@
 curl -X POST http://localhost:3000/file-options \
   -H "Content-Type: application/json" \
-  -d '{"url": "https://x.com/titolovesyou/status/1836486610478645355"}'
+  -d '{"url": "https://www.tiktok.com/@igreenscreenthings/video/7398635648963497262"}'

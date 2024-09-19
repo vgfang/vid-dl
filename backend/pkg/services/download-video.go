@@ -14,8 +14,9 @@ func DownloadVideo(url string, videoFormatId string, audioFormatId string) ([]by
 	exePath := cwd + "/bin/yt-dlp"
 	outputPath := cwd + "/video-storage"
 	outputFilename := "%(title)s [%(id)s]" + uuidGen.String() + ".%(ext)s"
-	
-	fmt.Println("Download Starting")
+
+	fmt.Println("Download Starting for: " + url)
+
 	// First, get the expected filename
 	filenameCmd := exec.Command(
 		exePath,
@@ -28,7 +29,7 @@ func DownloadVideo(url string, videoFormatId string, audioFormatId string) ([]by
 		outputFilename,
 		"--get-filename",
 	)
-	
+
 	filename, err := filenameCmd.Output()
 	if err != nil {
 		return nil, err
