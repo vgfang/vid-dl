@@ -6,10 +6,10 @@ import (
 	"net/http"
 
 	"vid-dl/pkg/services"
+	"vid-dl/pkg/utils"
 )
 
 func FileOptions(w http.ResponseWriter, r *http.Request) {
-	// TODO: Make sure params are safe
 	type requestBody struct {
 		Url string `json:"url"`
 	}
@@ -29,6 +29,18 @@ func FileOptions(w http.ResponseWriter, r *http.Request) {
 	url := body.Url
 	defer r.Body.Close()
 
+	w.Header().Set("Content-Type", "appplication/json")
+
+	// check what video website they are trying to get to
+	urltype := services.GetUrlType(url)
+	if urltype == "invalid" {
+		utils.WriteJSONMessage(w, 400, "invalid url")
+		return
+	} else if urltype == "unknown" {
+		utils.WriteJSONMessage(w, 400, "unknown url")
+		return
+	}
+
 	output, err := services.GetFileOptions(url)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error executing command: %v", err), http.StatusInternalServerError)
@@ -40,6 +52,5 @@ func FileOptions(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, fmt.Sprintf("Error encoding JSON at file options: %v", err), http.StatusInternalServerError)
 	}
 
-	w.Header().Set("Content-Type", "appplication/json")
 	w.Write(jsonData)
 }

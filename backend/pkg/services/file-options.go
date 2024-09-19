@@ -11,10 +11,9 @@ type Format struct {
 	ID         string
 	Ext        string
 	Resolution string
-	FPS        string
-	CH         string
 	Filesize   string
 	TBR        string
+	Proto      string
 }
 
 func GetFileOptions(url string) ([]Format, error) {
@@ -33,7 +32,7 @@ func GetFileOptions(url string) ([]Format, error) {
 		}
 
 		fields := strings.Fields(line)
-		if len(fields) < 7 {
+		if len(fields) < 6 {
 			continue
 		}
 
@@ -41,10 +40,9 @@ func GetFileOptions(url string) ([]Format, error) {
 			ID:         fields[0],
 			Ext:        fields[1],
 			Resolution: fields[2],
-			FPS:        fields[3],
-			CH:         fields[4],
-			Filesize:   fields[5],
-			TBR:        fields[6],
+			Filesize:   fields[3],
+			TBR:        fields[4],
+			Proto:      fields[5],
 		}
 
 		formats = append(formats, formatted)
